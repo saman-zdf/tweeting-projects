@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { ReactNode } from "react";
 import {
@@ -61,7 +60,7 @@ const Sidebar = () => {
           return (
             <div
               key={`${idx}-${link.name}`}
-              className='flex align-baseline w-full h-16 border-teal-100'
+              className='flex align-baseline w-full my-5 border-teal-100'
             >
               {link.icon}
               <Link
