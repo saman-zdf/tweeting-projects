@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className='flex align-middle  max-w-6xl mx-auto'>
+        <div className='flex align-middle max-w-6xl mx-auto'>
           <Sidebar />
           {children}
         </div>

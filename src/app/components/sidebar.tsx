@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ReactNode } from "react";
 import {
@@ -8,6 +10,7 @@ import {
 } from "react-icons/ai";
 import { CgUserList } from "react-icons/cg";
 import { GiKiwiBird } from "react-icons/gi";
+import { usePathname } from "next/navigation";
 
 type LinkItem = {
   to: string;
@@ -16,6 +19,8 @@ type LinkItem = {
 };
 
 const Sidebar = () => {
+  const pathname = usePathname();
+
   const linkItems: LinkItem[] = [
     {
       to: "/",
@@ -44,21 +49,32 @@ const Sidebar = () => {
     },
   ];
 
+  const isActive = (url: string) => {
+    return url === pathname;
+  };
+
   return (
-    <div className='flex flex-col w-3/12 h-screen px-4 py-4 border-r-2 border-gray-200'>
+    <div className='flex flex-col w-3/12 h-screen p-4 border-r border-gray-200'>
       <div className='flex flex-col items-start mt-6 -mx-2'>
         <GiKiwiBird className='mx-3 mt-1 mb-6 text-5xl' />
-        {linkItems.map((link, idx) => (
-          <div
-            key={`${idx}-${link.name}`}
-            className='flex align-baseline w-full h-16 border-teal-100'
-          >
-            {link.icon}
-            <Link href={link.to} className='font-bold text-2xl'>
-              {link.name}
-            </Link>
-          </div>
-        ))}
+        {linkItems.map((link, idx) => {
+          return (
+            <div
+              key={`${idx}-${link.name}`}
+              className='flex align-baseline w-full h-16 border-teal-100'
+            >
+              {link.icon}
+              <Link
+                href={link.to}
+                className={`${
+                  isActive(link.to) ? "text-green-400" : "text-white"
+                } font-bold text-2xl`}
+              >
+                {link.name}
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
