@@ -5,25 +5,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String?  @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  password  String   @unique
-  role      Role     @default(USER)
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "update_at")
+  id        Int       @id @default(autoincrement())
+  username  String?   @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  password  String    @unique
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "update_at")
   Tweet     Tweet[]
   Like      Like[]
-
   following Follow[]  @relation("UserFollowing")
   followers Follow[]  @relation("UserFollowers")
   Comment   Comment[]
 
+  @@index([id])
   @@map(name: "users")
 }
 
@@ -41,6 +43,7 @@ model Tweet {
   Like      Like[]
   Comment   Comment[]
 
+  @@index([id, userId])
   @@map(name: "tweets")
 }
 
@@ -53,6 +56,7 @@ model Follow {
   createdAt       DateTime @default(now()) @map("created_at")
 
   @@unique([followerUserId, followingUserId])
+  @@index([id, followerUserId, followingUserId])
   @@map(name: "follows")
 }
 
@@ -64,6 +68,7 @@ model Like {
   tweetId Int   @map(name: "tweet_id")
 
   @@unique([userId, tweetId])
+  @@index([id, tweetId, userId])
   @@map(name: "likes")
 }
 
@@ -76,5 +81,6 @@ model Comment {
   tweetId Int     @map(name: "tweet_id")
 
   @@unique([userId, tweetId])
+  @@index([id, userId, tweetId])
   @@map(name: "comments")
 }

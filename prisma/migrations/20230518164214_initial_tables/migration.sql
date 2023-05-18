@@ -60,10 +60,25 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE UNIQUE INDEX "users_password_key" ON "users"("password");
 
 -- CreateIndex
+CREATE INDEX "users_id_idx" ON "users"("id");
+
+-- CreateIndex
+CREATE INDEX "tweets_id_user_id_idx" ON "tweets"("id", "user_id");
+
+-- CreateIndex
+CREATE INDEX "follows_id_follower_user_id_following_user_id_idx" ON "follows"("id", "follower_user_id", "following_user_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "follows_follower_user_id_following_user_id_key" ON "follows"("follower_user_id", "following_user_id");
 
 -- CreateIndex
+CREATE INDEX "likes_id_tweet_id_user_id_idx" ON "likes"("id", "tweet_id", "user_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "likes_user_id_tweet_id_key" ON "likes"("user_id", "tweet_id");
+
+-- CreateIndex
+CREATE INDEX "comments_id_user_id_tweet_id_idx" ON "comments"("id", "user_id", "tweet_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "comments_user_id_tweet_id_key" ON "comments"("user_id", "tweet_id");
