@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "^4.14.1",
     "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-slot": "^1.0.1",
@@ -36,6 +37,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
-    "prisma": "^4.14.0"
+    "prisma": "^4.14.1"
   }
 }
