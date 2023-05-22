@@ -1,3 +1,4 @@
+import MainHeader from "@/components/MainHeader";
 import { MetaData } from "@/utils/CommoneTypes";
 import { FC } from "react";
 
@@ -9,7 +10,13 @@ export const metadata: MetaData = {
 };
 
 const Page: FC<PageProps> = ({}) => {
-  return <div>Messages Page</div>;
+  return (
+    <main className='flex flex-col w-full'>
+      <div className='h-24 border-b-[1px] border-neutral-800 w-full'>
+        <MainHeader />
+      </div>
+    </main>
+  );
 };
 
 export default Page;

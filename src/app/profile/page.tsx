@@ -12,6 +12,7 @@ import {
 import { Button } from "../../components/UI/button";
 import { Label } from "../../components/UI/label";
 import { Input } from "../../components/UI/input";
+import MainHeader from "@/components/MainHeader";
 
 interface PageProps {}
 
@@ -56,7 +57,13 @@ function DialogDemo() {
 }
 
 const Page: FC<PageProps> = ({}) => {
-  return <DialogDemo />;
+  return (
+    <main className='flex flex-col w-full'>
+      <div className='h-24 border-b-[1px] border-neutral-800 w-full'>
+        <MainHeader />
+      </div>
+    </main>
+  );
 };
 
 export default Page;

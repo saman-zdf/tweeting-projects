@@ -1,18 +1,11 @@
-import { useAppSelector } from "@/redux/hooks";
-import SignInButton from "../components/UI/SignInButton";
-import TweetForm from "../components/UI/TweetForm";
-import { store } from "@/redux";
-import { setUser } from "@/redux/userSlice";
+import MainHeader from "@/components/MainHeader";
 
 export default function Home() {
-  const createdUser = {
-    id: 1,
-    username: "sam",
-    email: "sam@email.com",
-    role: "USER",
-    createdAt: "12/12/2023",
-    updatedAt: "12/12/2023",
-  };
-  store.dispatch(setUser(createdUser));
-  return <main className='flex w-full '>home</main>;
+  return (
+    <main className='flex flex-col w-full'>
+      <div className='h-24 border-b-[1px] border-neutral-800 w-full'>
+        <MainHeader />
+      </div>
+    </main>
+  );
 }
