@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../components/UI/dialog";
-import { Button } from "../components/UI/button";
-import { Label } from "../components/UI/label";
-import { Input } from "../components/UI/input";
+} from "../../components/UI/dialog";
+import { Button } from "../../components/UI/button";
+import { Label } from "../../components/UI/label";
+import { Input } from "../../components/UI/input";
 
 interface PageProps {}
 

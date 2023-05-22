@@ -25,11 +25,6 @@ const Sidebar: FC<SidebarProps> = ({}) => {
       href: "/users/123",
       icon: FaUser,
     },
-    {
-      label: "Notifications",
-      href: "/notifications",
-      icon: BsBellFill,
-    },
   ];
   return (
     <div className='col-span-1 h-full pr-4 md-pr-6'>

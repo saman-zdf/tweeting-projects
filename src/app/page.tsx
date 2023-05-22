@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/redux/hooks";
-import SignInButton from "./components/UI/SignInButton";
-import TweetForm from "./components/UI/TweetForm";
+import SignInButton from "../components/UI/SignInButton";
+import TweetForm from "../components/UI/TweetForm";
 import { store } from "@/redux";
 import { setUser } from "@/redux/userSlice";
 
