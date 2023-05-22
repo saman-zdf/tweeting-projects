@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import prisma from "../../../../lib/db";
+import prisma from "@/lib/db";
 import * as bcrypt from "bcrypt";
+import * as Jwt from "jsonwebtoken";
 
 interface RequestBody {
-  username: string;
   password: string;
   email?: string;
 }
@@ -22,8 +22,20 @@ export async function POST(request: Request) {
 
   // TODO: If the isPasswordMatch does not work, we need to do the check on the bcrypt itself.
   if (user && isPasswordMatch) {
-    const { password, ...userWithNoPass } = user;
-    return NextResponse.json(userWithNoPass);
+    const token = Jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        username: user.username,
+      },
+      "secret",
+      {
+        expiresIn: "90d",
+      }
+    );
+    const { password, ...userObject } = user;
+    return NextResponse.json({ user: userObject, token });
   } else {
     return NextResponse.json({ message: "Given credentials does not match." });
   }

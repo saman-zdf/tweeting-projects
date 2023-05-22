@@ -1,15 +1,13 @@
+"use client";
+import { useAppSelector } from "@/redux/hooks";
 import { MetaData } from "@/utils/CommoneTypes";
 import { FC } from "react";
 
 interface PageProps {}
 
-export const metadata: MetaData = {
-  title: "List of users",
-  description: "List of users",
-};
-
 const Page: FC<PageProps> = ({}) => {
-  return <div>List of users page</div>;
+  const user = useAppSelector((state) => state.user.user);
+  return <div>{JSON.stringify(user)}</div>;
 };
 
 export default Page;
