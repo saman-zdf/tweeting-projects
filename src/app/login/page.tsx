@@ -1,12 +1,13 @@
-"use client";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { setUser } from "@/redux/userSlice";
-import { useEffect } from "react";
+import MainHeader from "@/components/MainHeader";
+import SignInForm from "@/components/UI/SignInForm/SignInForm";
+import { FC } from "react";
 
-const Page = ({}) => {
-  const user = useAppSelector((state) => state.user.user);
-
-  return <div>{JSON.stringify(user)}</div>;
+const LoginPage = ({}) => {
+  return (
+    <>
+      <SignInForm />
+    </>
+  );
 };
 
-export default Page;
+export default LoginPage;

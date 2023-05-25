@@ -1,8 +1,5 @@
 "use client";
-"use client";
 import { FormEvent, useState } from "react";
-import Image from "next/image";
-import SignInButton from "./SignInButton";
 
 export const secret = process.env.NEXT_PUBLIC_SECRET_JWT;
 
