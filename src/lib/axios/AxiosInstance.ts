@@ -6,5 +6,5 @@ export const axiosInstance = axios.create({
     process.env.NODE_ENV === NODE_PRODUCTION_ENVIRONMENT
       ? AppURL.Production
       : AppURL.Local,
-  timeout: 5000,
+  timeout: 100000,
 });

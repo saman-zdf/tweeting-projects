@@ -4,8 +4,8 @@ import * as bcrypt from "bcrypt";
 import * as Jwt from "jsonwebtoken";
 
 interface RequestBody {
+  email: string;
   password: string;
-  email?: string;
 }
 
 export async function POST(request: Request) {
