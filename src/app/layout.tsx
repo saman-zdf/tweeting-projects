@@ -2,6 +2,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "@/redux/Porvider";
 import { Layout } from "../components/Layout";
+import AuthSessionProvider from "@/components/AuthSessionProvider";
+import { Toaster } from "@/components/UI/Toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +20,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Providers>
-          <Layout>{children}</Layout>
-        </Providers>
+        <AuthSessionProvider>
+          <Providers>
+            <Layout>
+              {children}
+              <Toaster />
+            </Layout>
+          </Providers>
+        </AuthSessionProvider>
       </body>
     </html>
   );

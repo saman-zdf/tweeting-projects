@@ -7,15 +7,11 @@ import { AiFillSetting } from "react-icons/ai";
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
 import SidebarTweetButton from "./SidebarTweetButton";
-import { store } from "@/redux";
-import { localStorageRemoveItem } from "@/utils/windowStorages/Storages";
-import { logoutUser } from "@/redux/userSlice";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = ({}) => {
-  const router = useRouter();
   const items = [
     {
       label: "Home",
@@ -44,11 +40,6 @@ const Sidebar: FC<SidebarProps> = ({}) => {
     },
   ];
 
-  const handleLogout = () => {
-    store.dispatch(logoutUser());
-    localStorageRemoveItem("user");
-    router.push("/");
-  };
   return (
     <div className='col-span-1 h-full pr-4 md-pr-6'>
       <div className='flex flex-col items-end'>
@@ -62,7 +53,15 @@ const Sidebar: FC<SidebarProps> = ({}) => {
               icon={item.icon}
             />
           ))}
-          <SidebarItem onClick={handleLogout} icon={BiLogOut} label='Logout' />
+          <SidebarItem
+            onClick={() =>
+              signOut({
+                callbackUrl: "/login",
+              })
+            }
+            icon={BiLogOut}
+            label='Logout'
+          />
           <SidebarTweetButton />
         </div>
       </div>

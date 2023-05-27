@@ -27,11 +27,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userSignInSchema } from "@/validation/UserInfoValidation";
 import { Button } from "../button";
 import { Loader2, Mail } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
+import { useToast } from "../use-toast";
 import { useRouter } from "next/navigation";
-import { localStorageSetItem } from "@/utils/windowStorages/Storages";
 
 const SignInModal: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { toast } = useToast();
+  const { status } = useSession();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof userSignInSchema>>({
@@ -42,32 +45,30 @@ const SignInModal: FC = () => {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof userSignInSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof userSignInSchema>) => {
     setLoading(true);
 
-    const payload = {
+    await signIn("credentials", {
       email: values.email,
       password: values.password,
-    };
-
-    TweetAPI.post("/login", payload)
-      .then((res) => {
-        const userRes = res.data;
-        const { token, user } = userRes;
-        const userObjectToSet = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          token: token,
-          role: user.role,
-        };
-        store.dispatch(setUser(userObjectToSet));
-        localStorageSetItem("user", userObjectToSet);
-        router.push("/");
+      redirect: true,
+      // TODO: Create helper for dynamic redirect
+      // callbackUrl: `/${dynamicRoute(window.location.search)}`,
+      callbackUrl: "/",
+    })
+      .then(() => {
+        toast({
+          title: "Success!",
+          description: "✅ You have successfully signed in!",
+        });
       })
-      .catch((error) => console.log("error", error))
+      .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   };
+
+  if (status === "authenticated") {
+    router.push("/");
+  }
 
   return (
     <Dialog>
